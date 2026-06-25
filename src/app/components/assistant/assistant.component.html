@@ -1,0 +1,174 @@
+<div class="assistant-grid">
+
+  <!-- Left Panel -->
+  <div class="left-col">
+
+    <!-- Input Card -->
+    <div class="card">
+      <div class="status-row">
+        <span class="ping-dot"></span>
+        <span class="status-label">Active AI Segregator</span>
+      </div>
+      <h2 class="section-title">Identify Any Waste Item</h2>
+      <p class="section-desc">Type waste items like "Banana Peel", "Old Battery", or "Soda Can" and our AI model will analyze the correct recycling category and disposal action.</p>
+
+      <div class="input-group">
+        <label class="field-label">Input Item Name</label>
+        <div class="input-wrap">
+          <input
+            type="text"
+            [(ngModel)]="inputText"
+            (keydown.enter)="classify()"
+            placeholder="e.g. Cardboard box, Rotten apple, LED bulb..."
+            class="text-input"
+          />
+          <button class="submit-btn" (click)="classify()" [disabled]="isAnalyzing()">
+            <span *ngIf="!isAnalyzing()">→</span>
+            <span *ngIf="isAnalyzing()" class="spinner"></span>
+          </button>
+        </div>
+      </div>
+
+      <div class="presets">
+        <span class="presets-label">Popular presets</span>
+        <div class="preset-chips">
+          <button *ngFor="let p of presets" class="chip" (click)="classify(p)">{{ p }}</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Analyzing State -->
+    <div *ngIf="isAnalyzing()" class="card state-card">
+      <div class="spinner-large"></div>
+      <h3>AI Brain Processing...</h3>
+      <p>Connecting to environmental taxonomies and identifying materials.</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!isAnalyzing() && !result()" class="card state-card empty">
+      <div class="empty-icon">🔍</div>
+      <h3>Awaiting Search Request</h3>
+      <p>Enter a waste item name to view categorization output.</p>
+    </div>
+
+    <!-- Not Recognized State -->
+    <div *ngIf="!isAnalyzing() && result() && !result()!.recognized" class="card state-card not-recognized">
+      <div class="empty-icon">🤔</div>
+      <h3>Item Not Recognized</h3>
+      <p>"{{ result()!.itemName }}" doesn't look like a real waste item. Try entering an actual object, like "plastic bottle" or "banana peel".</p>
+      <p *ngIf="result()!.source !== 'Gemini AI' && aiError" class="ai-error-text">⚠️ Gemini AI call failed ({{ aiError }}), so this used the local fallback check instead.</p>
+    </div>
+
+    <!-- Result Card -->
+    <div *ngIf="!isAnalyzing() && result()?.recognized && result() as r" class="result-card">
+      <div class="result-header">
+        <div class="result-header-left">
+          <span class="result-ai-label">{{ r.source === 'Gemini AI' ? 'AI Inference Success' : 'Fallback Result' }}</span>
+        </div>
+        <span class="source-badge">Via: {{ r.source }}</span>
+      </div>
+
+      <div *ngIf="r.source !== 'Gemini AI' && aiError" class="ai-error-banner">
+        ⚠️ Gemini AI call failed, so this came from the local database instead: {{ aiError }}
+      </div>
+
+      <div class="result-body">
+        <div class="result-top">
+          <div>
+            <span class="result-meta-label">Identified Item</span>
+            <h3 class="result-item-name">{{ r.itemName }}</h3>
+          </div>
+          <span class="category-badge" [ngClass]="categoryClass(r.category)">{{ r.category }}</span>
+        </div>
+
+        <div class="result-details">
+          <div class="detail-col">
+            <div class="detail-row">
+              <span class="detail-icon">🗑️</span>
+              <div>
+                <span class="detail-label">Assigned Bin Color</span>
+                <div class="bin-color-row">
+                  <span class="bin-dot" [ngClass]="binDotClass(r.binColor)"></span>
+                  <span class="bin-color-text">{{ r.binColor }} Bin</span>
+                </div>
+              </div>
+            </div>
+            <div class="detail-row">
+              <span class="detail-icon">⚠️</span>
+              <div>
+                <span class="detail-label">Disposal Guidelines</span>
+                <p class="detail-value">{{ r.disposal }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="eco-card">
+            <div class="eco-header">
+              <span>💡</span>
+              <span class="eco-label">Eco-friendly Impact Tip</span>
+            </div>
+            <p class="eco-tip">"{{ r.environmentalTip }}"</p>
+            <span class="rationale-label">Scientific Rationale</span>
+            <p class="rationale-text">{{ r.explanation }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Right Panel -->
+  <div class="right-col">
+
+    <!-- Prototype Screen Mock -->
+    <div class="demo-card">
+      <div class="demo-tag-row">
+        <span class="demo-tag">Target System Demo</span>
+        <span class="demo-meta">Screen 1 & 2 Prototype</span>
+      </div>
+      <div class="demo-screen">
+        <div class="demo-label">Screen 1 Input Simulation</div>
+        <div class="demo-input-mock">
+          <span>Enter Item: Plastic Bottle</span>
+          <span class="demo-submit">Submit</span>
+        </div>
+      </div>
+      <div class="demo-screen">
+        <div class="demo-label">Screen 2 Output Simulation</div>
+        <div class="demo-output">
+          <div class="demo-row"><span>Category:</span><span class="demo-blue">Recyclable Waste</span></div>
+          <div class="demo-row"><span>Dispose in:</span><span class="demo-green">Blue Bin</span></div>
+          <div class="demo-tip">
+            <strong>Environmental Tip:</strong> Recycling plastic saves energy.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent Scans -->
+    <div class="card">
+      <div class="history-header">
+        <span class="history-title">Recent Detections</span>
+        <span class="history-meta">Real-time Log</span>
+      </div>
+      <div class="history-list">
+        <div *ngFor="let scan of recentScans()" class="history-item">
+          <div class="history-left">
+            <div class="history-icon" [ngClass]="historyIconClass(scan.binColor)">
+              {{ scan.itemName.charAt(0) }}
+            </div>
+            <div>
+              <div class="history-name">{{ scan.itemName }}</div>
+              <div class="history-time">{{ formatTime(scan.scannedAt) }}</div>
+            </div>
+          </div>
+          <span class="history-badge" [ngClass]="historyBadgeClass(scan.category)">
+            {{ scan.category }}
+          </span>
+        </div>
+        <p *ngIf="recentScans().length === 0" class="no-history">No scans yet. Try classifying an item!</p>
+      </div>
+    </div>
+
+  </div>
+</div>

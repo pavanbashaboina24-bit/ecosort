@@ -1,0 +1,56 @@
+<header class="header glass">
+  <div class="header-inner">
+    <!-- Brand -->
+    <a routerLink="/assistant" class="brand">
+      <div class="brand-icon">🌿</div>
+      <div>
+        <h1 class="brand-name">EcoSort AI <span class="badge">v1.1</span></h1>
+        <p class="brand-sub">Smart Waste Segregation Portal</p>
+      </div>
+    </a>
+
+    <!-- Desktop Nav -->
+    <nav class="desktop-nav">
+      <a *ngFor="let link of navLinks"
+         [routerLink]="link.path"
+         routerLinkActive="active"
+         class="nav-link">
+        <span>{{ link.icon }}</span> {{ link.label }}
+      </a>
+    </nav>
+
+    <!-- API Key Button -->
+    <button class="api-btn" [class.active]="hasCustomKey" (click)="openModal()">
+      🔑 {{ hasCustomKey ? 'Gemini Active' : 'Set API Key' }}
+    </button>
+  </div>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav">
+    <a *ngFor="let link of navLinks"
+       [routerLink]="link.path"
+       routerLinkActive="active"
+       class="mobile-link">
+      {{ link.label }}
+    </a>
+  </nav>
+</header>
+
+<!-- API Key Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="showModal = false">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h3>🔑 Configure Gemini API</h3>
+      <button class="close-btn" (click)="showModal = false">✕</button>
+    </div>
+    <p class="modal-desc">A default Gemini API key is already active for live AI classification. Paste your own <strong>Gemini 2.5 Flash API</strong> key below to override it, or clear to go back to the default.</p>
+    <div class="modal-body">
+      <label>API Key String</label>
+      <input type="password" [(ngModel)]="tempKey" placeholder="AIzaSy..." />
+      <div class="modal-actions">
+        <button class="btn-primary" (click)="saveKey()">Save Settings</button>
+        <button class="btn-secondary" (click)="clearKey()">Use Default Key</button>
+      </div>
+    </div>
+  </div>
+</div>

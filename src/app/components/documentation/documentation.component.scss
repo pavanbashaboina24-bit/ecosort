@@ -1,0 +1,100 @@
+.docs-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  @media (min-width: 1024px) { grid-template-columns: 240px 1fr; align-items: start; }
+}
+
+/* Sidebar */
+.toc-sidebar {
+  background: #fff; border-radius: 16px; padding: 1rem;
+  border: 1px solid #f1f5f9; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  @media (min-width: 1024px) { position: sticky; top: 100px; }
+  display: flex; flex-direction: column; gap: 4px;
+}
+
+.toc-heading {
+  display: block; font-size: 0.65rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: #94a3b8; padding: 4px 12px; margin-bottom: 4px;
+}
+
+.toc-link {
+  display: block; padding: 8px 12px; font-size: 0.85rem; font-weight: 600;
+  color: #334155; text-decoration: none; border-radius: 8px; transition: all 0.15s;
+  &:hover { color: #16a34a; background: #f0fdf4; }
+}
+
+/* Content */
+.docs-content { display: flex; flex-direction: column; gap: 1.5rem; }
+
+.doc-section {
+  background: #fff; border-radius: 20px; padding: 2rem;
+  border: 1px solid #f1f5f9; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  scroll-margin-top: 120px;
+  @media (max-width: 480px) { padding: 1.25rem; border-radius: 16px; }
+}
+
+.section-heading {
+  font-size: 1.4rem; font-weight: 800; color: #0f172a;
+  padding-bottom: 0.75rem; border-bottom: 1px solid #f1f5f9; margin-bottom: 1.25rem;
+}
+
+.section-text { font-size: 0.88rem; color: #475569; line-height: 1.75; }
+
+.sdg-grid { display: grid; grid-template-columns: 1fr; gap: 1rem; margin-top: 1.25rem;
+  @media (min-width: 640px) { grid-template-columns: 1fr 1fr; }
+}
+
+.sdg-card { background: #f8fafc; border-radius: 12px; padding: 1rem; }
+.sdg-title { font-size: 0.85rem; font-weight: 700; color: #1e293b; margin-bottom: 6px; }
+.sdg-text  { font-size: 0.78rem; color: #64748b; line-height: 1.6; }
+
+/* Design Thinking steps */
+.steps-grid {
+  display: grid; gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  @media (min-width: 900px) { grid-template-columns: repeat(5, 1fr); }
+}
+
+.step-card { border: 1px solid #f1f5f9; border-radius: 14px; padding: 1rem; }
+.step-num {
+  width: 32px; height: 32px; border-radius: 50%;
+  background: #dcfce7; color: #166534;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 0.8rem; margin-bottom: 0.5rem;
+}
+.step-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.06em; color: #1e293b; margin-bottom: 6px; }
+.step-text  { font-size: 0.75rem; color: #64748b; line-height: 1.6; }
+
+/* Technology Used */
+.table-scroll { overflow-x: auto; margin: 1.25rem 0 1.75rem; -webkit-overflow-scrolling: touch; }
+.tech-table {
+  width: 100%; min-width: 560px; border-collapse: collapse;
+  font-size: 0.82rem; border: 1px solid #f1f5f9; border-radius: 12px; overflow: hidden;
+}
+.tech-table thead tr { background: #f0fdf4; }
+.tech-table th {
+  text-align: left; padding: 10px 14px; font-size: 0.7rem; font-weight: 800;
+  text-transform: uppercase; letter-spacing: 0.06em; color: #166534;
+}
+.tech-table td { padding: 10px 14px; border-top: 1px solid #f1f5f9; color: #475569; vertical-align: top; }
+.tech-table tbody tr:hover { background: #fafafa; }
+.tech-layer   { font-weight: 700; color: #1e293b; white-space: nowrap; }
+.tech-name    { color: #16a34a; font-weight: 600; white-space: nowrap; }
+.tech-purpose { color: #64748b; }
+.tech-architecture-grid { margin-top: 0.5rem; }
+
+/* Responsible AI */
+.ai-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr;
+  @media (min-width: 640px) { grid-template-columns: 1fr 1fr; }
+}
+
+.ai-card {}
+.ai-title { font-size: 0.9rem; font-weight: 700; color: #1e293b; display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+.ai-icon  { font-size: 1rem; }
+.ai-text  { font-size: 0.78rem; color: #64748b; line-height: 1.7; }
+
+/* Future list */
+.future-list { display: flex; flex-direction: column; gap: 0.75rem; list-style: none; padding: 0; }
+.future-item { display: flex; gap: 10px; font-size: 0.88rem; color: #475569; line-height: 1.65; }
+.future-dot  { color: #16a34a; font-weight: 700; flex-shrink: 0; }

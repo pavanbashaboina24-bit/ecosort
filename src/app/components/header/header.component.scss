@@ -1,0 +1,135 @@
+.header {
+  position: sticky; top: 0; z-index: 50;
+  border-bottom: 1px solid rgba(226,232,240,0.8);
+  padding: 0 clamp(1rem, 4vw, 3rem);
+}
+
+.header-inner {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; gap: 1rem;
+  @media (max-width: 480px) { gap: 0.5rem; }
+}
+
+.brand {
+  display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit;
+  flex-shrink: 1; min-width: 0; overflow: hidden;
+  @media (max-width: 480px) { gap: 0.5rem; }
+}
+
+.brand-icon {
+  background: #16a34a; color: #fff;
+  width: 40px; height: 40px; border-radius: 12px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; box-shadow: 0 4px 12px rgba(22,163,74,0.25);
+  flex-shrink: 0;
+  @media (max-width: 480px) { width: 34px; height: 34px; font-size: 1rem; }
+}
+
+.brand-name {
+  font-size: 1.1rem; font-weight: 800; color: #0f172a; line-height: 1.2;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  @media (max-width: 480px) { font-size: 0.9rem; }
+  .badge {
+    font-size: 0.65rem; background: #dcfce7; color: #166534;
+    font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-left: 6px;
+    @media (max-width: 480px) { display: none; }
+  }
+}
+
+.brand-sub {
+  font-size: 0.7rem; color: #64748b; font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  @media (max-width: 420px) { display: none; }
+}
+
+.desktop-nav {
+  display: flex; align-items: center; gap: 2px;
+  background: #f1f5f9; padding: 4px; border-radius: 12px;
+  @media (max-width: 900px) { display: none; }
+}
+
+.nav-link {
+  display: flex; align-items: center; gap: 6px;
+  padding: 8px 14px; font-size: 0.8rem; font-weight: 600;
+  border-radius: 8px; text-decoration: none; color: #475569;
+  transition: all 0.15s;
+  &:hover { color: #0f172a; }
+  &.active { background: #fff; color: #0f172a; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+}
+
+.api-btn {
+  padding: 6px 14px; font-size: 0.75rem; font-weight: 700;
+  border-radius: 8px; border: none; cursor: pointer;
+  background: #0f172a; color: #fff; transition: all 0.15s;
+  white-space: nowrap; flex-shrink: 0;
+  &:hover { background: #1e293b; }
+  &.active { background: #f0fdf4; color: #166534; border: 1px solid #bbf7d0; }
+  @media (max-width: 480px) { padding: 6px 10px; font-size: 0.68rem; }
+}
+
+.mobile-nav {
+  display: none;
+  @media (max-width: 900px) {
+    display: flex; gap: 8px; padding: 8px 0;
+    overflow-x: auto; white-space: nowrap;
+    &::-webkit-scrollbar { display: none; }
+  }
+}
+
+.mobile-link {
+  padding: 6px 14px; font-size: 0.75rem; font-weight: 600;
+  border-radius: 8px; text-decoration: none;
+  background: #f1f5f9; color: #475569; flex-shrink: 0;
+  &.active { background: #16a34a; color: #fff; }
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 1000;
+  background: rgba(15,23,42,0.5); backdrop-filter: blur(4px);
+  display: flex; align-items: center; justify-content: center; padding: 1rem;
+}
+
+.modal {
+  background: #fff; border-radius: 20px; padding: 1.5rem;
+  width: 100%; max-width: 420px; box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+  border: 1px solid #f1f5f9;
+}
+
+.modal-header {
+  display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;
+  h3 { font-size: 1rem; font-weight: 800; color: #0f172a; }
+}
+
+.close-btn {
+  background: none; border: none; cursor: pointer; font-size: 1rem; color: #94a3b8;
+  &:hover { color: #475569; }
+}
+
+.modal-desc { font-size: 0.8rem; color: #64748b; line-height: 1.6; margin-bottom: 1rem; }
+
+.modal-body {
+  label { display: block; font-size: 0.65rem; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 6px; }
+  input {
+    width: 100%; padding: 10px 12px; border: 1px solid #e2e8f0;
+    border-radius: 10px; font-size: 0.85rem; outline: none;
+    background: #f8fafc; transition: border-color 0.15s;
+    &:focus { border-color: #16a34a; box-shadow: 0 0 0 3px rgba(22,163,74,0.1); }
+  }
+}
+
+.modal-actions {
+  display: flex; gap: 8px; margin-top: 1rem;
+}
+
+.btn-primary {
+  flex: 1; padding: 10px; background: #0f172a; color: #fff;
+  border: none; border-radius: 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;
+  &:hover { background: #1e293b; }
+}
+
+.btn-secondary {
+  padding: 10px 14px; background: #f1f5f9; color: #475569;
+  border: none; border-radius: 10px; font-weight: 700; font-size: 0.8rem; cursor: pointer;
+  &:hover { background: #e2e8f0; }
+}

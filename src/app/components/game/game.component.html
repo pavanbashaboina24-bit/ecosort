@@ -1,0 +1,83 @@
+<div class="game-wrap">
+  <div class="game-card">
+    <div class="game-top">
+      <div>
+        <span class="module-tag">Educational Module · {{ totalItemsInBank }}+ Items in Bank</span>
+        <h2 class="game-title">Waste Sorting Simulator</h2>
+      </div>
+      <div class="score-box">
+        <span class="score-label">Score</span>
+        <span class="score-value">{{ score() }} pts</span>
+      </div>
+    </div>
+
+    <!-- Active Game -->
+    <ng-container *ngIf="!completed()">
+      <!-- Item Display -->
+      <div class="item-card">
+        <span class="item-icon">{{ currentItem.icon }}</span>
+        <h3 class="item-name">{{ currentItem.name }}</h3>
+        <p class="item-hint">Item {{ currentIndex() + 1 }} of {{ gameItems().length }} · Select the correct bin below</p>
+        <div class="progress-bar">
+          <div class="progress-fill" [style.width.%]="progress"></div>
+        </div>
+      </div>
+
+      <!-- Feedback -->
+      <div *ngIf="feedback() as fb" class="feedback" [class.correct]="fb.correct" [class.wrong]="!fb.correct">
+        {{ fb.text }}
+      </div>
+
+      <!-- Bin Buttons -->
+      <div class="bins-grid">
+        <button *ngFor="let bin of bins" class="bin-btn" [class]="'bin-' + bin.style" (click)="answer(bin.label)" [disabled]="!!feedback()">
+          <div class="bin-icon-wrap" [class]="'bin-icon-' + bin.style">{{ bin.icon }}</div>
+          <span class="bin-label-text">{{ bin.binLabel }}</span>
+          <span class="bin-category">{{ bin.label }}</span>
+        </button>
+      </div>
+    </ng-container>
+
+    <!-- Completed / Summary State -->
+    <div *ngIf="completed() && summary() as s" class="completed">
+      <div class="trophy animate-bounce">🏆</div>
+      <h3>Round Complete!</h3>
+      <p>Here's how you did on this {{ s.totalItems }}-item round. Play again for a fresh random set from the {{ totalItemsInBank }}-item bank.</p>
+
+      <div class="final-score">
+        <span class="final-label">Total Score</span>
+        <span class="final-value">{{ s.score }} / {{ s.totalItems * 10 }}</span>
+      </div>
+
+      <div class="summary-grid">
+        <div class="summary-stat">
+          <span class="summary-icon">✅</span>
+          <span class="summary-num">{{ s.correct }}</span>
+          <span class="summary-label">Correct</span>
+        </div>
+        <div class="summary-stat">
+          <span class="summary-icon">❌</span>
+          <span class="summary-num">{{ s.wrong }}</span>
+          <span class="summary-label">Wrong</span>
+        </div>
+        <div class="summary-stat">
+          <span class="summary-icon">🎯</span>
+          <span class="summary-num">{{ s.accuracy }}%</span>
+          <span class="summary-label">Accuracy</span>
+        </div>
+        <div class="summary-stat">
+          <span class="summary-icon">🔥</span>
+          <span class="summary-num">{{ s.bestStreak }}</span>
+          <span class="summary-label">Best Streak</span>
+        </div>
+        <div class="summary-stat">
+          <span class="summary-icon">⏱️</span>
+          <span class="summary-num">{{ s.timeTakenSec }}s</span>
+          <span class="summary-label">Time Taken</span>
+        </div>
+      </div>
+
+      <button class="play-again-btn" (click)="reset()">Play Again</button>
+    </div>
+  </div>
+</div>

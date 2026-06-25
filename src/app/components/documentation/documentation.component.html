@@ -1,0 +1,103 @@
+<div class="docs-grid">
+
+  <!-- Sidebar TOC -->
+  <aside class="toc-sidebar">
+    <span class="toc-heading">Topics Browser</span>
+    <a href="#about"        class="toc-link">Project Overview</a>
+    <a href="#thinking"     class="toc-link">Design Thinking Process</a>
+    <a href="#tech"         class="toc-link">Technology Used</a>
+    <a href="#responsible"  class="toc-link">Responsible AI Ethics</a>
+    <a href="#impact"       class="toc-link">Impact and Future Scope</a>
+  </aside>
+
+  <!-- Doc Content -->
+  <div class="docs-content">
+
+    <!-- Project Overview -->
+    <section id="about" class="doc-section">
+      <h3 class="section-heading">Project Summary</h3>
+      <p class="section-text">
+        The <strong>AI-Based Smart Waste Segregation Assistant</strong> is a digital interface and classification
+        model built to streamline waste processing at the source. Recognizing that human error or confusion at
+        municipal trash bins is the leading driver of materials recycling blockages, this solution provides
+        instantly accessible conversational classification outputs for citizens.
+      </p>
+      <div class="sdg-grid">
+        <div class="sdg-card">
+          <h4 class="sdg-title">SDG 11 Alignment</h4>
+          <p class="sdg-text">Aims directly at cleaner and sustainable city infrastructure, fostering safe, healthy urban development blocks.</p>
+        </div>
+        <div class="sdg-card">
+          <h4 class="sdg-title">SDG 12 Alignment</h4>
+          <p class="sdg-text">Promotes responsible production cycles through enhanced raw materials recycling pipeline stability.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Design Thinking -->
+    <section id="thinking" class="doc-section">
+      <h3 class="section-heading">Design Thinking Methodology</h3>
+      <div class="steps-grid">
+        <div class="step-card" *ngFor="let step of designSteps">
+          <div class="step-num">{{ step.num }}</div>
+          <h4 class="step-title">{{ step.title }}</h4>
+          <p class="step-text">{{ step.text }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Technology Used -->
+    <section id="tech" class="doc-section">
+      <h3 class="section-heading">Technology Used</h3>
+      <p class="section-text">
+        EcoSort AI is a fully client-side Angular application backed by a real cloud database
+        and a live generative-AI model — no custom backend server required.
+      </p>
+
+      <div class="table-scroll">
+        <table class="tech-table">
+          <thead>
+            <tr><th>Layer</th><th>Technology</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let row of techStack">
+              <td class="tech-layer">{{ row.layer }}</td>
+              <td class="tech-name">{{ row.tech }}</td>
+              <td class="tech-purpose">{{ row.purpose }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ai-grid tech-architecture-grid">
+        <div class="ai-card" *ngFor="let arch of architectureNotes">
+          <h4 class="ai-title"><span class="ai-icon">{{ arch.icon }}</span> {{ arch.title }}</h4>
+          <p class="ai-text">{{ arch.text }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Responsible AI -->
+    <section id="responsible" class="doc-section">
+      <h3 class="section-heading">Responsible AI Architecture</h3>
+      <div class="ai-grid">
+        <div class="ai-card" *ngFor="let ai of responsibleAI">
+          <h4 class="ai-title"><span class="ai-icon">{{ ai.icon }}</span> {{ ai.title }}</h4>
+          <p class="ai-text">{{ ai.text }}</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Impact & Future -->
+    <section id="impact" class="doc-section">
+      <h3 class="section-heading">Future Scope & Enhancements</h3>
+      <ul class="future-list">
+        <li *ngFor="let item of futureItems" class="future-item">
+          <span class="future-dot">•</span>
+          <span><strong>{{ item.title }}:</strong> {{ item.text }}</span>
+        </li>
+      </ul>
+    </section>
+
+  </div>
+</div>

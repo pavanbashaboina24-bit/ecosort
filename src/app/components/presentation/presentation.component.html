@@ -1,0 +1,44 @@
+<div class="ppt-wrap">
+  <div class="slide-card">
+
+    <!-- Top meta -->
+    <div class="slide-meta">
+      <span class="deck-tag">🖥️ INTERNSHIP PPT DECK</span>
+      <span class="slide-count">Slide {{ current() + 1 }} of {{ slides.length }}</span>
+    </div>
+
+    <!-- Slide content -->
+    <div class="slide-content">
+      <h2 class="slide-title">{{ slide.title }}</h2>
+      <p class="slide-subtitle">{{ slide.subtitle }}</p>
+
+      <ul class="slide-points">
+        <li *ngFor="let point of slide.points" class="slide-point">
+          <span class="checkmark">✓</span>
+          <span>{{ point }}</span>
+        </li>
+      </ul>
+
+      <div *ngIf="slide.presenter" class="presenter-note">
+        {{ slide.presenter }}
+      </div>
+    </div>
+
+    <!-- Controls -->
+    <div class="slide-controls">
+      <button class="ctrl-btn prev" (click)="prev()" [disabled]="isFirst">← Prev</button>
+
+      <div class="dot-nav">
+        <button *ngFor="let s of slides; let i = index"
+                class="dot"
+                [class.active]="i === current()"
+                (click)="goTo(i)">
+        </button>
+      </div>
+
+      <button class="ctrl-btn next" (click)="next()" [disabled]="isLast">Next →</button>
+    </div>
+  </div>
+
+  <p class="ppt-tip">💡 Use the buttons or dots to navigate through all {{ slides.length }} slides of your internship presentation.</p>
+</div>
